@@ -4,11 +4,15 @@ var mongoose = require('mongoose');
 const path = require('path');
 
 app.get('/',function(req,res){
-    res.sendFile(path.join(__dirname+'/main.html'));
+    res.sendFile(path.join(__dirname+'/index.html'));
 });
 
-app.post('/submit',function(req,res){
-    res.sendFile(path.join(__dirname+'/index.html'));
+app.get('/comment',function(req,res){
+    res.sendFile(path.join(__dirname+'/contact.html'));
+});
+
+app.get('/test',function(req,res){
+    res.sendFile(path.join(__dirname+'/table.html'));
 });
 
 app.use(express.static('public'));
