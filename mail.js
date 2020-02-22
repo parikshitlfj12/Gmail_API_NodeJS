@@ -19,8 +19,21 @@ const connect_and_send = () => {
     oauth2Client.setCredentials({
         refresh_token: REFRESHTOKEN 
     });
+
+    var util = require("util");
     const ACCESS_TOKEN = oauth2Client.getAccessToken()
-    console.log("ACCESS TOKEN =============" + ACCESS_TOKEN);
+    .then((result, err) => {
+        x =  result.token;
+        
+        var Gmail = require('node-gmail-api')
+        gmail = new Gmail(x)
+        s = gmail.messages('label:unread', {max: 1})
+    
+        s.on('data', function (d) {
+        console.log(d.snippet)
+        })
+    });
+
 
 
     const smtpTransport = nodemailer.createTransport({
@@ -46,10 +59,21 @@ const connect_and_send = () => {
 
 
     smtpTransport.sendMail(mailOptions, (error, response) => {
-        error ? console.log(error) : console.log(response);
+        error ? console.log(error) : console.log(response.envelope['to']);
         smtpTransport.close();
     });
 
+
+    
+
 }
 
-exports.mail = connect_and_send;
+exports.mailsend = connect_and_send;
+
+///////////Retriving the mail
+
+const Retrive = () => {
+    
+}
+
+exports.mailrecieve = Retrive;
