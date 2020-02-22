@@ -1938,3 +1938,13 @@ h3 {
   color: white;
 }
 
+.theform{
+  padding: 20px 20px;
+  background-color: rgba(180, 180, 180, 0.521);
+  border: 2px solid rgb(79, 133, 150);
+  box-shadow: 5px 2px 10px black;
+}
+
+.theinput{
+  border: 1px solid rgba(0, 0, 0, 0.425);
+}
