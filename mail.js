@@ -20,22 +20,6 @@ const connect_and_send = () => {
         refresh_token: REFRESHTOKEN 
     });
 
-    var util = require("util");
-    const ACCESS_TOKEN = oauth2Client.getAccessToken()
-    .then((result, err) => {
-        x =  result.token;
-        
-        var Gmail = require('node-gmail-api')
-        gmail = new Gmail(x)
-        s = gmail.messages('label:unread', {max: 1})
-    
-        s.on('data', function (d) {
-        console.log(d.snippet)
-        })
-    });
-
-
-
     const smtpTransport = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -73,7 +57,40 @@ exports.mailsend = connect_and_send;
 ///////////Retriving the mail
 
 const Retrive = () => {
+    const oauth2Client = new OAuth2(
+        CLIENT_ID,
+        CLIENT_SECRET, // Client Secret
+        "https://developers.google.com/oauthplayground" // Redirect URL
+    );
+
+    oauth2Client.setCredentials({
+        refresh_token: REFRESHTOKEN 
+    });
+
+    var util = require("util");
+    oauth2Client.getAccessToken()
+    .then((result, err) => {
+        x =  result.token;
+        
+        var Gmail = require('node-gmail-api')
+        gmail = new Gmail(x)
+        s = gmail.messages('label:unread', {max: 1})
     
+        s.on('data', function (d) {
+        console.log(d.snippet);
+        file = util.inspect(d, true, 7, true);
+        index = file.indexOf('Return-Path');
+        index = index + 32;
+        str = file.slice(index , index+100);
+        
+        var senderEmail = str.substring(
+            str.lastIndexOf("<") + 1, 
+            str.lastIndexOf(">")
+        );
+        console.log('SenderEmail = '+senderEmail);
+
+        })
+    });
 }
 
 exports.mailrecieve = Retrive;

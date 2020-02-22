@@ -7,8 +7,8 @@ const path = require('path');
 //Importing the mail.js
 //Sending the Mail also. You can consider applying a loop to send multiple mails
 const mail = require('./mail');
-mail.mailsend();
-// mail.mailrecieve();
+// mail.mailsend();
+mail.mailrecieve();
 
 
 app.get('/',function(req,res){
