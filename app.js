@@ -8,7 +8,7 @@ app.get('/',function(req,res){
 });
 
 app.get('/comment',function(req,res){
-    res.sendFile(path.join(__dirname+'/contact.html'));
+    res.sendFile(path.join(__dirname+'/comment.html'));
 });
 
 app.get('/test',function(req,res){
