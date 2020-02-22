@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 const path = require('path');
+const Product = require('./schema');
+
 app.use(express.urlencoded());
 
 //Importing the mail.js
@@ -20,8 +22,19 @@ app.get('/comment',function(req,res){
 });
 
 app.post('/change', function(req,res){
-    console.log(req.body);
+    email = req.body.email;
     res.sendFile(path.join(__dirname+'/index.html'));
+    console.log(email);
+
+    Product.findOneAndUpdate({EmailId: email},{status:'open'}, function (err,users) {
+        if(err) throw err;
+        console.log(users);
+    })
+
+    
+
+    
+
 });
 
 //Static Files Used
@@ -29,16 +42,16 @@ app.use(express.static('public'));
 
 
 //Database
-// mongoose
-//     .connect('mongodb+srv://ghost:ghost@mycluster-jfog5.mongodb.net/test?retryWrites=true&w=majority')
-//     .then(result => {
-//         app.listen(3000);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     });
+mongoose
+    .connect('mongodb+srv://ghost:ghost@mycluster-jfog5.mongodb.net/test?retryWrites=true&w=majority')
+    .then(result => {
+        app.listen(3000);
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
-// //Storting in database
+//Storting in database
 // var db = mongoose.connection;
 // db.on('error', console.error.bind(console, 'connection error:'));
 // db.once('open', function() {
@@ -49,7 +62,7 @@ app.use(express.static('public'));
 //       });
     
 //     var Record = mongoose.model('Record', RecordSchema);
-//     var first = new Record({ EmailId: 'akjsdkjasdh@gmail.com', Ticket: 'sahjdgajhsdjabsd', status:'open' });
+//     var first = new Record({ EmailId: 'singhdon85@gmail.com', Ticket: 'sahjdgajhsdjabsd', status:'open' });
 //     console.log(first);
 
 //     first.save(function (err, Record) {
