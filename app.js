@@ -3,6 +3,14 @@ var app = express();
 var mongoose = require('mongoose');
 const path = require('path');
 
+
+//Importing the mail.js
+//Sending the Mail also. You can consider applying a loop to send multiple mails
+const mail = require('./mail');
+mail.mail();
+
+
+
 app.get('/',function(req,res){
     res.sendFile(path.join(__dirname+'/index.html'));
 });
@@ -32,3 +40,10 @@ var server = app.listen(8081, function() {
 
     console.log("The App listening to http://%s:%s", host, port)
 })
+
+
+
+
+
+
+
