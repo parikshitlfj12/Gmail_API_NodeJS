@@ -5,11 +5,13 @@ const path = require('path');
 const Product = require('./schema');
 
 app.use(express.urlencoded());
+//Static Files Used
+app.use(express.static('public'));
 
 //Importing the mail.js
 //Sending the Mail also. You can consider applying a loop to send multiple mails
 const mail = require('./mail');
-// mail.mailsend();
+
 // mail.mailrecieve();
 
 //Routes
@@ -23,22 +25,17 @@ app.get('/comment',function(req,res){
 
 app.post('/change', function(req,res){
     email = req.body.email;
+    subject = req.body.subject;
+    html = req.body.message;
+    console.log(req.body);
     res.sendFile(path.join(__dirname+'/index.html'));
-    console.log(email);
+    mail.mailsend(email, subject, html);
 
     Product.findOneAndUpdate({EmailId: email},{status:'open'}, function (err,users) {
         if(err) throw err;
-        console.log(users);
     })
-
-    
-
-    
-
 });
 
-//Static Files Used
-app.use(express.static('public'));
 
 
 //Database

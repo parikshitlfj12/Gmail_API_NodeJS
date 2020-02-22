@@ -8,7 +8,7 @@ var CLIENT_ID = '822988449195-uep44ergugu30579vpjtegvjr9deggh7.apps.googleuserco
 var CLIENT_SECRET = 'O28t5QHbyGrfKrL9Yvxt_X4E'
 var REFRESHTOKEN = '1//04OBievwhPNS_CgYIARAAGAQSNwF-L9IrebSZmmZZKGVjm39cwyPGm74s4RjQIcbdjSp_CTqFrAzYe62ZBc2HfBBtl47cvKK0_ic'
 
-const connect_and_send = () => {
+const connect_and_send = function(to, subject, html) {
 
     const oauth2Client = new OAuth2(
         CLIENT_ID,
@@ -19,6 +19,8 @@ const connect_and_send = () => {
     oauth2Client.setCredentials({
         refresh_token: REFRESHTOKEN 
     });
+
+    ACCESS_TOKEN = oauth2Client.getAccessToken();
 
     const smtpTransport = nodemailer.createTransport({
         service: "gmail",
@@ -35,10 +37,10 @@ const connect_and_send = () => {
 
     const mailOptions = {
         from: "singhdon85@gmail.com",
-        to: "parikshit.s18@iiits.in",
-        subject: "Node.js Email with Secure OAuth",
+        to: to,
+        subject: subject,
         generateTextFromHTML: true,
-        html: "<b>test</b>"
+        html: html
     };
 
 
