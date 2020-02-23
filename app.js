@@ -11,7 +11,6 @@ app.use(express.static('public'));
 //Importing the mail.js
 const mail = require('./mail');
 
-// mail.mailrecieve();
 
 //Routes
 app.get('/',function(req,res){

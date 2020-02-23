@@ -75,37 +75,48 @@ const Retrive = () => {
 
     var util = require("util");
     oauth2Client.getAccessToken()
-    .then((result, err) => {
-        x =  result.token;
+        .then((result, err) => {
+            x =  result.token;
+            
+            var Gmail = require('node-gmail-api')
+            gmail = new Gmail(x)
+            s = gmail.messages('label:inbox', {max: 1})
         
-        var Gmail = require('node-gmail-api')
-        gmail = new Gmail(x)
-        s = gmail.messages('label:unread', {max: 1})
-    
-        s.on('data', function (d) {
-        console.log(d.snippet);
-        file = util.inspect(d, true, 7, true);
-        index = file.indexOf('Return-Path');
-        index = index + 32;
-        str = file.slice(index , index+100);
-        
-        var senderEmail = str.substring(
-            str.lastIndexOf("<") + 1, 
-            str.lastIndexOf(">")
-        );
-        
-        // let newone = new Product({EmailId: senderEmail, Ticket: 'Random Number', status:'Open'})
-        //     newone.save()
-        //     .then((result)=> {
-        //     console.log(result);
-        //     })
-        //     .catch((err)=> {
-        //     console.log(err);
-        //     })
-        // });
+            s.on('data', function (d) {
 
+                //Email Generator
+                file = util.inspect(d, true, 7, true);
+                index = file.indexOf('Return-Path');
+                index = index + 32;
+                str = file.slice(index , index+100);
+                
+                var senderEmail = str.substring(
+                    str.lastIndexOf("<") + 1, 
+                    str.lastIndexOf(">")
+                );  
+                
+                //Checking the read or unread
+                newornot = d.labelIds[0];
 
+                //Ticket Generator
+                var randomstring = require("randomstring");
+                ticket = randomstring.generate();
+                console.log(ticket);
+
+                    if(newornot == "UNREAD"){
+                        let newone = new Product({EmailId: senderEmail, Ticket: ticket, status:'Open'})
+                        newone.save()
+                        .then((result)=> {
+                        console.log("Status Stored");
+                        })
+                        .catch((err)=> {
+                        console.log(err);
+                        })
+                    }
+            
+            });
     });
-}
+};
+
 
 exports.mailrecieve = Retrive;
