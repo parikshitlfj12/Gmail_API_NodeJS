@@ -7,13 +7,14 @@
     <title>Travelo</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta http-equiv="refresh" content="10">
 
     <!-- CSS here -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
 
     <link rel="stylesheet" href="css/style.css">
+    
 </head>
 
 <body>
@@ -107,16 +108,20 @@
                             <div class="visit">singhdon85@gmail.com</div>
                             <div class="status">Open</div>
                         </div>
-                        <div class="table-row hovereffect" style="cursor: pointer;" onclick="window.location='http://localhost:8081/comment';">
-                            <div class="serial">02</div>
-                            <div class="country"> 865328746aswdqwedq2222dbn==</div>
-                            <div class="visit">parikshitlfj@gmail.com</div>
-                            <div class="status">Closed</div>
-                        </div>		
+
+                        
+                            <% for(var i=0; i < users.length; i++) { %>
+                                <div class="table-row hovereffect" style="cursor: pointer;" onclick="window.location='http://localhost:8081/comment';">  
+                                    <div class="serial"><%= i+1 %></div>
+                                    <div class="country"> <%= users[i].Ticket%></div>
+                                    <div class="visit"><%= users[i].EmailId %></div>
+                                    <div class="status"><%= users[i].status %></div>
+                                </div>
+                            <% }; %>
+
 					</div>
 				</div>
 	</div>
-
 
     <footer class="footer">
         <div class="footer_top">

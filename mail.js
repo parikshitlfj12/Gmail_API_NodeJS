@@ -1,3 +1,7 @@
+var express = require('express');
+var app = express();
+var mongoose = require('mongoose');
+const Product = require('./schema');
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 var {google} = require('googleapis');
@@ -89,9 +93,18 @@ const Retrive = () => {
             str.lastIndexOf("<") + 1, 
             str.lastIndexOf(">")
         );
-        console.log('SenderEmail = '+senderEmail);
+        
+        // let newone = new Product({EmailId: senderEmail, Ticket: 'Random Number', status:'Open'})
+        //     newone.save()
+        //     .then((result)=> {
+        //     console.log(result);
+        //     })
+        //     .catch((err)=> {
+        //     console.log(err);
+        //     })
+        // });
 
-        })
+
     });
 }
 
