@@ -14,7 +14,6 @@ const mail = require('./mail');
 
 //Routes
 app.get('/',function(req,res){
-
         mail.mailrecieve();
         
         Product.find({}, function (err,users) {
@@ -30,16 +29,19 @@ app.get('/comment',function(req,res){
 
 
 //For every post request at this address the email is send to the reciever.
-app.post('/change', function(req,res){
+app.post('/', function(req,res){
     email = req.body.email;
     subject = req.body.subject;
     html = req.body.message;
     console.log(req.body);
-    res.render('index');
     mail.mailsend(email, subject, html);
 
-    Product.findOneAndUpdate({EmailId: email},{status:'open'}, function (err,users) {
+    Product.findOneAndUpdate({EmailId: email},{status:'Closed'}, function (err,users) {
         if(err) throw err;
+    })
+    Product.find({}, function (err,users) {
+        if(err) console.log(err);
+        res.render('index', {users: users});
     })
 });
 

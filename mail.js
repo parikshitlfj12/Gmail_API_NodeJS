@@ -83,27 +83,28 @@ const Retrive = () => {
             s = gmail.messages('label:inbox', {max: 1})
         
             s.on('data', function (d) {
-
+                
                 //Email Generator
                 file = util.inspect(d, true, 7, true);
                 index = file.indexOf('Return-Path');
                 index = index + 32;
                 str = file.slice(index , index+100);
-                
+
                 var senderEmail = str.substring(
                     str.lastIndexOf("<") + 1, 
                     str.lastIndexOf(">")
-                );  
-                
+                );
                 //Checking the read or unread
                 newornot = d.labelIds[0];
-
-                //Ticket Generator
-                var randomstring = require("randomstring");
-                ticket = randomstring.generate();
-                console.log(ticket);
-
                     if(newornot == "UNREAD"){
+                        
+
+                        //Ticket Generator
+                        var randomstring = require("randomstring");
+                        ticket = randomstring.generate();
+                        console.log(ticket);
+                        
+                        
                         let newone = new Product({EmailId: senderEmail, Ticket: ticket, status:'Open'})
                         newone.save()
                         .then((result)=> {
