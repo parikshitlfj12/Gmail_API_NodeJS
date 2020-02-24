@@ -1,7 +1,7 @@
 # My Safe Trip Gmail-Api using Node
 
-# A Go through ReadMe of extracting Information from your own Gmail account using nodeJs and API's
-# Fetch the unread mails, Send mail to other people.
+=> A Go through ReadMe of extracting Information from your own Gmail account using nodeJs and API's
+=> Fetch the unread mails, Send mail to other people.
 
 # Working Pattern
 
@@ -41,3 +41,5 @@ Languages-
 This will indicate which link to go to.
 Open up your browser and you're good to go.
         
+        
+Issues will be considered
