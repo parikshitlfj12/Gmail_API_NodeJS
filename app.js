@@ -49,7 +49,7 @@ app.post('/', function(req,res){
 
 //Database
 mongoose
-    .connect('mongodb+srv://ghost:ghost@mycluster-jfog5.mongodb.net/test?retryWrites=true&w=majority')
+    .connect('mongodb+srv://username:password@mycluster-jfog5.mongodb.net/test?retryWrites=true&w=majority')
     .then(result => {
         app.listen(3000);
     })

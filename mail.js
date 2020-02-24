@@ -8,9 +8,9 @@ var {google} = require('googleapis');
 const OAuth2 = google.auth.OAuth2;
 
 
-var CLIENT_ID = '822988449195-uep44ergugu30579vpjtegvjr9deggh7.apps.googleusercontent.com'
-var CLIENT_SECRET = 'O28t5QHbyGrfKrL9Yvxt_X4E'
-var REFRESHTOKEN = '1//04OBievwhPNS_CgYIARAAGAQSNwF-L9IrebSZmmZZKGVjm39cwyPGm74s4RjQIcbdjSp_CTqFrAzYe62ZBc2HfBBtl47cvKK0_ic'
+var CLIENT_ID = '**************************************************8'
+var CLIENT_SECRET = '***********************8'
+var REFRESHTOKEN = '**********************************'
 
 const connect_and_send = function(to, subject, html) {
 
@@ -30,7 +30,7 @@ const connect_and_send = function(to, subject, html) {
         service: "gmail",
         auth: {
             type: "OAuth2",
-            user: "singhdon85@gmail.com", 
+            user: "Your Email Id", 
             clientId: CLIENT_ID,
             clientSecret: CLIENT_SECRET,
             refreshToken: REFRESHTOKEN,
@@ -40,7 +40,7 @@ const connect_and_send = function(to, subject, html) {
 
 
     const mailOptions = {
-        from: "singhdon85@gmail.com",
+        from: "Your mail iD",
         to: to,
         subject: subject,
         generateTextFromHTML: true,
